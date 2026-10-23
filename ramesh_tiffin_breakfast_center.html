@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ramesh Tiffin & Breakfast Center | Authentic South Indian Tiffins in Miyapur</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        saffron: {
+                            50: '#fff7ed',
+                            100: '#ffedd5',
+                            500: '#f97316',
+                            600: '#ea580c',
+                            700: '#c2410c',
+                            800: '#9a3412',
+                            900: '#7c2d12',
+                        },
+                        gold: {
+                            500: '#eab308',
+                            600: '#ca8a04',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts & FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        .dark ::-webkit-scrollbar-thumb { background: #475569; }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-800 dark:bg-stone-950 dark:text-stone-100 transition-colors duration-300 min-h-screen flex flex-col">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-gradient-to-r from-amber-600 via-orange-600 to-amber-700 text-white text-xs sm:text-sm py-2 px-4 text-center font-medium shadow-sm flex items-center justify-center gap-2">
+        <i class="fa-solid fa-clock animate-pulse"></i>
+        <span>Hot & Fresh Tiffins Ready! Miyapur Branch Hours: <strong>6:30 AM – 11:30 AM</strong> Daily</span>
+        <span class="hidden md:inline bg-white/20 px-2 py-0.5 rounded text-xs ml-2">100% Pure Ghee</span>
+    </div>
+
+    <!-- Navigation Bar -->
+    <header class="sticky top-0 z-40 bg-white/90 dark:bg-stone-900/90 backdrop-blur-md border-b border-stone-200 dark:border-stone-800 shadow-xs transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-orange-500 to-amber-600 flex items-center justify-center text-white shadow-md shadow-orange-500/20 group-hover:scale-105 transition-transform">
+                    <i class="fa-solid fa-utensils text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="font-extrabold text-lg sm:text-xl tracking-tight bg-gradient-to-r from-orange-600 to-amber-600 bg-clip-text text-transparent">Ramesh Tiffins</h1>
+                    <p class="text-xs text-stone-500 dark:text-stone-400 font-medium">Breakfast Center • Miyapur, Hyd</p>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center gap-8 font-medium text-sm">
+                <a href="#menu" class="hover:text-orange-600 dark:hover:text-orange-400 transition-colors">Menu</a>
+                <a href="#heritage" class="hover:text-orange-600 dark:hover:text-orange-400 transition-colors">Our Heritage</a>
+                <a href="#contact" class="hover:text-orange-600 dark:hover:text-orange-400 transition-colors">Location & Hours</a>
+            </nav>
+
+            <!-- Action Buttons -->
+            <div class="flex items-center gap-3">
+                <!-- Theme Toggle -->
+                <button onclick="toggleDarkMode()" aria-label="Toggle Dark Mode" class="w-10 h-10 rounded-xl bg-stone-100 dark:bg-stone-800 flex items-center justify-center text-stone-600 dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-700 transition-colors">
+                    <i id="theme-icon" class="fa-solid fa-moon"></i>
+                </button>
+
+                <!-- Cart Button -->
+                <button onclick="toggleCartDrawer(true)" class="relative flex items-center gap-2.5 bg-gradient-to-r from-orange-600 to-amber-600 text-white px-4 py-2.5 rounded-xl font-semibold shadow-md shadow-orange-600/20 hover:opacity-95 transition-all active:scale-95">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span class="hidden sm:inline">Cart</span>
+                    <span id="cart-badge" class="absolute -top-1.5 -right-1.5 bg-stone-900 dark:bg-amber-400 dark:text-stone-900 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center shadow-sm border-2 border-white dark:border-stone-900 transition-transform scale-100">0</span>
+                </button>
+
+                <!-- Mobile Menu Toggle -->
+                <button onclick="toggleMobileMenu()" aria-label="Toggle Mobile Menu" class="md:hidden w-10 h-10 rounded-xl bg-stone-100 dark:bg-stone-800 flex items-center justify-center text-stone-600 dark:text-stone-300">
+                    <i class="fa-solid fa-bars text-lg"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden border-t border-stone-200 dark:border-stone-800 bg-white dark:bg-stone-900 px-4 py-4 space-y-3">
+            <a href="#menu" onclick="toggleMobileMenu()" class="block py-2 px-3 rounded-lg hover:bg-stone-100 dark:hover:bg-stone-800 font-medium">Menu</a>
+            <a href="#heritage" onclick="toggleMobileMenu()" class="block py-2 px-3 rounded-lg hover:bg-stone-100 dark:hover:bg-stone-800 font-medium">Our Heritage</a>
+            <a href="#contact" onclick="toggleMobileMenu()" class="block py-2 px-3 rounded-lg hover:bg-stone-100 dark:hover:bg-stone-800 font-medium">Location & Hours</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative overflow-hidden bg-gradient-to-b from-orange-50/60 via-stone-50 to-stone-50 dark:from-stone-900 dark:via-stone-950 dark:to-stone-950 py-12 lg:py-20 border-b border-stone-200/60 dark:border-stone-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <!-- Left Content -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 bg-orange-100 dark:bg-orange-950/60 text-orange-700 dark:text-orange-300 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase">
+                        <i class="fa-solid fa-star"></i> Miyapur's Favorite Breakfast Destination
+                    </div>
+                    <h2 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
+                        Authentic South Indian Tiffins at <span class="bg-gradient-to-r from-orange-600 via-amber-600 to-orange-500 bg-clip-text text-transparent">Ramesh Tiffins</span>
+                    </h2>
+                    <p class="text-stone-600 dark:text-stone-300 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0">
+                        Serving steaming idlis, crispy medu vadas, golden dosas, and fragrant filter coffee prepared with pure cow ghee and traditional recipes.
+                    </p>
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+                        <a href="#menu" class="w-full sm:w-auto bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white font-semibold px-8 py-4 rounded-xl shadow-lg shadow-orange-600/25 transition-all text-center flex items-center justify-center gap-3">
+                            <i class="fa-solid fa-utensils"></i> Order Breakfast Now
+                        </a>
+                        <a href="#heritage" class="w-full sm:w-auto bg-stone-200/80 dark:bg-stone-800 hover:bg-stone-300 dark:hover:bg-stone-700 font-semibold px-6 py-4 rounded-xl transition-all text-center">
+                            Our Kitchen Story
+                        </a>
+                    </div>
+                    <!-- Stats / Highlights -->
+                    <div class="grid grid-cols-3 gap-4 pt-6 border-t border-stone-200 dark:border-stone-800 max-w-lg mx-auto lg:mx-0">
+                        <div>
+                            <p class="text-2xl font-black text-orange-600 dark:text-orange-400">13+</p>
+                            <p class="text-xs text-stone-500 dark:text-stone-400 font-medium">Signature Dishes</p>
+                        </div>
+                        <div>
+                            <p class="text-2xl font-black text-orange-600 dark:text-orange-400">100%</p>
+                            <p class="text-xs text-stone-500 dark:text-stone-400 font-medium">Pure Ghee Used</p>
+                        </div>
+                        <div>
+                            <p class="text-2xl font-black text-orange-600 dark:text-orange-400">4.9★</p>
+                            <p class="text-xs text-stone-500 dark:text-stone-400 font-medium">User Rating</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Hero Image / Featured Card -->
+                <div class="lg:col-span-5 relative">
+                    <div class="relative mx-auto max-w-md lg:max-w-none">
+                        <div class="absolute -inset-2 bg-gradient-to-r from-orange-500 to-amber-500 rounded-3xl blur-lg opacity-20 dark:opacity-40 animate-pulse"></div>
+                        <div class="relative bg-white dark:bg-stone-900 rounded-3xl p-4 shadow-2xl border border-stone-200 dark:border-stone-800">
+                            <img src="https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=800&q=80" 
+                                 alt="Crispy South Indian Dosa" 
+                                 class="w-full h-72 sm:h-80 object-cover rounded-2xl mb-4"
+                                 onerror="this.onerror=null;this.src='https://placehold.co/800x600/ffedd5/c2410c?text=Ramesh+Tiffins+Special';">
+                            <div class="flex items-center justify-between px-2">
+                                <div>
+                                    <span class="bg-amber-100 dark:bg-amber-950/80 text-amber-800 dark:text-amber-300 text-xs font-bold px-2.5 py-1 rounded-md">Chef's Special</span>
+                                    <h3 class="font-bold text-lg mt-1">Butter Masala Dosa & Filter Coffee</h3>
+                                </div>
+                                <div class="text-right">
+                                    <span class="text-xs text-stone-400 line-through">₹165</span>
+                                    <p class="text-xl font-black text-orange-600 dark:text-orange-400">₹130</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Menu Section -->
+    <section id="menu" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex-grow w-full">
+        <div class="text-center max-w-3xl mx-auto mb-12">
+            <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4">Our Morning Breakfast Menu</h2>
+            <p class="text-stone-600 dark:text-stone-400">Freshly prepared batters, traditional chutneys, and authentic South Indian breakfast classics.</p>
+        </div>
+
+        <!-- Search and Filters Bar -->
+        <div class="flex flex-col md:flex-row gap-4 items-center justify-between mb-8">
+            <!-- Search Input -->
+            <div class="relative w-full md:w-96">
+                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-stone-400">
+                    <i class="fa-solid fa-search"></i>
+                </span>
+                <input type="text" id="search-input" oninput="filterMenu()" placeholder="Search idli, medu vada, dosa, coffee..." 
+                       class="w-full pl-10 pr-4 py-3 bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 text-sm shadow-xs transition-all">
+            </div>
+
+            <!-- Category Filter Pills -->
+            <div class="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0">
+                <button onclick="setCategory('All')" class="category-btn px-4 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap bg-orange-600 text-white shadow-sm transition-all" data-category="All">All Items</button>
+                <button onclick="setCategory('Tiffins')" class="category-btn px-4 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-700 transition-all" data-category="Tiffins">Tiffins</button>
+                <button onclick="setCategory('Dosas & Vadas')" class="category-btn px-4 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-700 transition-all" data-category="Dosas & Vadas">Dosas & Vadas</button>
+                <button onclick="setCategory('Beverages')" class="category-btn px-4 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-700 transition-all" data-category="Beverages">Beverages</button>
+                <button onclick="setCategory('Specials')" class="category-btn px-4 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-700 transition-all" data-category="Specials">Specials</button>
+            </div>
+        </div>
+
+        <!-- Menu Grid -->
+        <div id="menu-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <!-- Dynamic JavaScript rendered items will appear here -->
+        </div>
+
+        <!-- Empty State Message -->
+        <div id="empty-state" class="hidden text-center py-16">
+            <i class="fa-solid fa-utensils text-4xl text-stone-400 mb-3"></i>
+            <h3 class="text-lg font-bold">No breakfast items found</h3>
+            <p class="text-sm text-stone-500">Try searching for something else or pick a different category.</p>
+        </div>
+    </section>
+
+    <!-- Heritage & Kitchen Section -->
+    <section id="heritage" class="bg-orange-50/50 dark:bg-stone-900/40 py-16 border-y border-stone-200 dark:border-stone-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <span class="text-orange-600 dark:text-orange-400 text-xs font-bold uppercase tracking-widest bg-orange-100 dark:bg-orange-950/60 px-3 py-1 rounded-md">Our Heritage</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mt-3 mb-6">Authentic Taste, Pure Ghee & Uncompromised Quality</h2>
+                    <p class="text-stone-600 dark:text-stone-300 mb-4 leading-relaxed">
+                        At Ramesh Tiffins in Miyapur, every morning begins at 4:00 AM with stone-ground rice and lentil batters. Our idlis are steamed to perfection for ultimate fluffiness, and our vadas boast an unforgettable outer crunch with a soft, airy center.
+                    </p>
+                    <p class="text-stone-600 dark:text-stone-300 mb-6 leading-relaxed">
+                        We take pride in using 100% pure cow ghee across all preparations and brew authentic South Indian filter coffee that awakens your senses.
+                    </p>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="flex items-start gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-orange-100 dark:bg-orange-950 text-orange-600 flex items-center justify-center shrink-0">
+                                <i class="fa-solid fa-seedling"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm">Farm Fresh</h4>
+                                <p class="text-xs text-stone-500">No preservatives, traditional recipes.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-orange-100 dark:bg-orange-950 text-orange-600 flex items-center justify-center shrink-0">
+                                <i class="fa-solid fa-mug-hot"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm">Filter Coffee</h4>
+                                <p class="text-xs text-stone-500">Authentic decoction brew.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <img src="https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=600&q=80" alt="South Indian breakfast spread" class="rounded-2xl object-cover h-64 w-full shadow-md" onerror="this.onerror=null;this.src='https://placehold.co/400x500/ffedd5/c2410c?text=Idli';">
+                    <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=600&q=80" alt="Filter coffee" class="rounded-2xl object-cover h-64 w-full shadow-md mt-8" onerror="this.onerror=null;this.src='https://placehold.co/400x500/ffedd5/c2410c?text=Coffee';">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location & Contact Section -->
+    <section id="contact" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div class="bg-white dark:bg-stone-900 rounded-3xl border border-stone-200 dark:border-stone-800 p-8 sm:p-12 shadow-sm">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Location Info -->
+                <div class="space-y-4">
+                    <div class="w-12 h-12 rounded-2xl bg-orange-100 dark:bg-orange-950 text-orange-600 flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </div>
+                    <h3 class="text-xl font-bold">Miyapur Branch</h3>
+                    <p class="text-stone-600 dark:text-stone-400 text-sm leading-relaxed">
+                        Plot No. 12, Near Metro Station, Main Road, Miyapur, Hyderabad, Telangana 500049
+                    </p>
+                    <p class="text-xs text-stone-500 font-semibold">Easy parking and dine-in available.</p>
+                </div>
+
+                <!-- Operating Hours -->
+                <div class="space-y-4">
+                    <div class="w-12 h-12 rounded-2xl bg-orange-100 dark:bg-orange-950 text-orange-600 flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-clock"></i>
+                    </div>
+                    <h3 class="text-xl font-bold">Operating Hours</h3>
+                    <div class="text-sm space-y-1 text-stone-600 dark:text-stone-400">
+                        <div class="flex justify-between py-1 border-b border-stone-100 dark:border-stone-800">
+                            <span>Monday – Sunday:</span>
+                            <span class="font-bold text-stone-800 dark:text-stone-200">6:30 AM – 11:30 AM</span>
+                        </div>
+                        <div class="flex justify-between py-1">
+                            <span>Evening Tiffins:</span>
+                            <span class="font-bold text-stone-800 dark:text-stone-200">4:30 PM – 8:30 PM</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-orange-600 dark:text-orange-400 font-medium">*Freshly prepared every morning.</p>
+                </div>
+
+                <!-- Contact & Quick Call -->
+                <div class="space-y-4">
+                    <div class="w-12 h-12 rounded-2xl bg-orange-100 dark:bg-orange-950 text-orange-600 flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-phone-volume"></i>
+                    </div>
+                    <h3 class="text-xl font-bold">Bulk Orders & Inquiries</h3>
+                    <p class="text-stone-600 dark:text-stone-400 text-sm">
+                        Call us for family gatherings, corporate breakfast catering, or party orders.
+                    </p>
+                    <p class="text-lg font-extrabold text-orange-600 dark:text-orange-400">+91 98490 99999</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-stone-900 text-stone-400 py-12 border-t border-stone-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+            <div>
+                <p class="text-white font-bold text-lg mb-1">Ramesh Tiffin & Breakfast Center</p>
+                <p class="text-xs">© 2026 Ramesh Tiffins, Miyapur. All rights reserved. Crafted with authentic South Indian flavors.</p>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="#" aria-label="Instagram" class="w-10 h-10 rounded-full bg-stone-800 hover:bg-orange-600 hover:text-white flex items-center justify-center transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" aria-label="Facebook" class="w-10 h-10 rounded-full bg-stone-800 hover:bg-orange-600 hover:text-white flex items-center justify-center transition-colors"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#" aria-label="Twitter" class="w-10 h-10 rounded-full bg-stone-800 hover:bg-orange-600 hover:text-white flex items-center justify-center transition-colors"><i class="fa-brands fa-twitter"></i></a>
+                <a href="#" aria-label="Zomato" class="w-10 h-10 rounded-full bg-stone-800 hover:bg-orange-600 hover:text-white flex items-center justify-center transition-colors"><i class="fa-solid fa-utensils"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Slide-out Cart Drawer -->
+    <div id="cart-drawer-backdrop" onclick="toggleCartDrawer(false)" class="fixed inset-0 bg-stone-900/60 backdrop-blur-xs z-50 hidden transition-opacity"></div>
+    <div id="cart-drawer" class="fixed top-0 right-0 h-full w-full sm:w-96 bg-white dark:bg-stone-900 z-50 shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
+        <!-- Cart Header -->
+        <div class="p-4 border-b border-stone-200 dark:border-stone-800 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-bag-shopping text-orange-600"></i>
+                <h3 class="font-bold text-lg">Your Breakfast Order</h3>
+            </div>
+            <button onclick="toggleCartDrawer(false)" aria-label="Close cart" class="w-9 h-9 rounded-xl bg-stone-100 dark:bg-stone-800 flex items-center justify-center text-stone-500 hover:bg-stone-200">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <!-- Cart Items List -->
+        <div id="cart-items-container" class="flex-grow overflow-y-auto p-4 space-y-4">
+            <!-- Rendered by JS -->
+        </div>
+
+        <!-- Cart Footer / Checkout -->
+        <div id="cart-footer" class="p-4 border-t border-stone-200 dark:border-stone-800 bg-stone-50 dark:bg-stone-950 space-y-3">
+            <div class="space-y-1.5 text-sm">
+                <div class="flex justify-between text-stone-500">
+                    <span>Item Total</span>
+                    <span id="cart-subtotal">₹0</span>
+                </div>
+                <div class="flex justify-between text-stone-500">
+                    <span>GST (5%)</span>
+                    <span id="cart-tax">₹0</span>
+                </div>
+                <div class="flex justify-between text-stone-500">
+                    <span>Packaging & Delivery Fee</span>
+                    <span id="cart-delivery">₹25</span>
+                </div>
+                <div class="flex justify-between font-extrabold text-base pt-2 border-t border-stone-200 dark:border-stone-800 text-stone-900 dark:text-white">
+                    <span>Total Bill</span>
+                    <span id="cart-total" class="text-orange-600 dark:text-orange-400">₹25</span>
+                </div>
+            </div>
+            <button onclick="openCheckoutModal()" class="w-full bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white font-bold py-3.5 rounded-xl shadow-md transition-all flex items-center justify-center gap-2">
+                <span>Proceed to Checkout</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div id="checkout-modal" class="fixed inset-0 bg-stone-900/60 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-stone-900 rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-stone-200 dark:border-stone-800 space-y-6">
+            <div class="flex items-center justify-between">
+                <h3 class="text-xl font-bold">Complete Your Order</h3>
+                <button onclick="closeCheckoutModal()" aria-label="Close modal" class="w-8 h-8 rounded-lg bg-stone-100 dark:bg-stone-800 flex items-center justify-center text-stone-500"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form onsubmit="handleOrderSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-stone-500 mb-1">Your Full Name</label>
+                    <input type="text" id="cust-name" required placeholder="e.g., Ramesh Varma" class="w-full px-4 py-3 rounded-xl bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-stone-500 mb-1">Phone Number</label>
+                    <input type="tel" id="cust-phone" required placeholder="e.g., 9876543210" class="w-full px-4 py-3 rounded-xl bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-stone-500 mb-1">Delivery Address or Table #</label>
+                    <textarea id="cust-address" required rows="2" placeholder="Miyapur address or Table # for dine-in" class="w-full px-4 py-3 rounded-xl bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"></textarea>
+                </div>
+                <button type="submit" class="w-full bg-gradient-to-r from-orange-600 to-amber-600 hover:opacity-95 text-white font-bold py-3.5 rounded-xl shadow-md transition-all">
+                    Place Order Now (Pay on Delivery)
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success Order Modal -->
+    <div id="success-modal" class="fixed inset-0 bg-stone-900/70 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-stone-900 rounded-3xl max-w-sm w-full p-8 text-center shadow-2xl border border-stone-200 dark:border-stone-800 space-y-4">
+            <div class="w-16 h-16 rounded-full bg-green-100 dark:bg-green-950 text-green-600 flex items-center justify-center text-3xl mx-auto animate-bounce">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <h3 class="text-2xl font-black">Order Placed Successfully!</h3>
+            <p id="success-message" class="text-sm text-stone-500 dark:text-stone-400">
+                Thank you! Your hot South Indian breakfast is being prepared with pure ghee at Ramesh Tiffins and will be served/delivered shortly.
+            </p>
+            <button onclick="closeSuccessModal()" class="w-full bg-orange-600 text-white font-bold py-3 rounded-xl shadow-md hover:bg-orange-700 transition-colors">
+                Back to Menu
+            </button>
+        </div>
+    </div>
+
+    <!-- Custom Message Toast -->
+    <div id="msg-box" class="fixed bottom-6 right-6 bg-stone-900 text-white px-5 py-3 rounded-2xl shadow-xl z-50 transform translate-y-20 opacity-0 transition-all duration-300 flex items-center gap-3">
+        <i class="fa-solid fa-circle-check text-orange-500 text-lg"></i>
+        <span id="msg-text" class="text-sm font-medium">Item added to cart!</span>
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Menu Data representing authentic South Indian breakfast items with rigorously verified imagery and robust fallbacks
+        const menuItems = [
+            {
+                id: 1,
+                name: "Sambar Idli",
+                category: "Tiffins",
+                price: 70,
+                rating: 4.8,
+                image: "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=600&q=80",
+                description: "3 fluffy steamed rice idlis immersed in piping hot, drumstick-infused traditional lentil sambar."
+            },
+            {
+                id: 2,
+                name: "Thatte Idli",
+                category: "Tiffins",
+                price: 60,
+                rating: 4.9,
+                image: "https://images.unsplash.com/photo-1514733670123-458ab8b92d03?auto=format&fit=crop&w=600&q=80",
+                description: "Large, soft, plate-sized Bidadi style idli topped with dollop of melting butter and milagai podi."
+            },
+            {
+                id: 3,
+                name: "Podi Idli (Mini Ghee)",
+                category: "Tiffins",
+                price: 90,
+                rating: 4.9,
+                image: "https://images.unsplash.com/photo-1610192244261-3f33de3f55e4?auto=format&fit=crop&w=600&q=80",
+                description: "Mini idlis tossed generously in aromatic gun powder (podi) and pure farm-fresh cow ghee."
+            },
+            {
+                id: 4,
+                name: "Medu Vada",
+                category: "Dosas & Vadas",
+                price: 55,
+                rating: 4.7,
+                image: "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?auto=format&fit=crop&w=600&q=80",
+                description: "Crispy golden exterior with fluffy, soft center urad dal fritters served with coconut chutney."
+            },
+            {
+                id: 5,
+                name: "Sambar Vada",
+                category: "Dosas & Vadas",
+                price: 75,
+                rating: 4.8,
+                image: "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=600&q=80",
+                description: "Crispy medu vadas soaked in flavorful vegetable sambar garnished with fresh coriander."
+            },
+            {
+                id: 6,
+                name: "Plain Dosa",
+                category: "Dosas & Vadas",
+                price: 65,
+                rating: 4.6,
+                image: "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=600&q=80",
+                description: "Thin, crispy, and golden fermented rice crepe served with coconut chutney and sambar."
+            },
+            {
+                id: 7,
+                name: "Masala Dosa",
+                category: "Dosas & Vadas",
+                price: 95,
+                rating: 4.9,
+                image: "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=600&q=80",
+                description: "Crispy golden dosa stuffed with spiced potato masala and seasoned onions, roasted in ghee."
+            },
+            {
+                id: 8,
+                name: "Onion Rava Dosa",
+                category: "Dosas & Vadas",
+                price: 110,
+                rating: 4.8,
+                image: "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=600&q=80",
+                description: "Lacy, crispy semolina crepe loaded with chopped onions, green chilies, and cumin seeds."
+            },
+            {
+                id: 9,
+                name: "Butter Paneer Dosa",
+                category: "Dosas & Vadas",
+                price: 130,
+                rating: 4.9,
+                image: "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=600&q=80",
+                description: "Rich dosa loaded with grated paneer, melted butter, and mild secret spices."
+            },
+            {
+                id: 10,
+                name: "Ghee Pongal with Vada Combo",
+                category: "Specials",
+                price: 120,
+                rating: 5.0,
+                image: "https://images.unsplash.com/photo-1610192244261-3f33de3f55e4?auto=format&fit=crop&w=600&q=80",
+                description: "Comforting moong dal and rice pongal tempered with black pepper and cashew nuts, served with 1 medu vada."
+            },
+            {
+                id: 11,
+                name: "Upma & Poori Masala",
+                category: "Specials",
+                price: 100,
+                rating: 4.7,
+                image: "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=600&q=80",
+                description: "Traditional semolina upma served alongside 2 puffed wheat pooris and potato masala."
+            },
+            {
+                id: 12,
+                name: "South Indian Filter Coffee",
+                category: "Beverages",
+                price: 35,
+                rating: 5.0,
+                image: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=600&q=80",
+                description: "Strong, frothy, authentic Kumbakonam degree decoction coffee served in a traditional dabarah."
+            },
+            {
+                id: 13,
+                name: "Badam Milk",
+                category: "Beverages",
+                price: 50,
+                rating: 4.8,
+                image: "https://images.unsplash.com/photo-1541658016709-82535e94bc69?auto=format&fit=crop&w=600&q=80",
+                description: "Rich, creamy warm milk infused with crushed almonds, saffron, and cardamom."
+            }
+        ];
+
+        let cart = [];
+        let currentCategory = 'All';
+
+        // Initialize App on DOM Load
+        document.addEventListener('DOMContentLoaded', () => {
+            renderMenu(menuItems);
+            updateCartUI();
+        });
+
+        // Render Menu Grid
+        function renderMenu(items) {
+            const grid = document.getElementById('menu-grid');
+            const emptyState = document.getElementById('empty-state');
+            grid.innerHTML = '';
+
+            if (items.length === 0) {
+                emptyState.classList.remove('hidden');
+                return;
+            } else {
+                emptyState.classList.add('hidden');
+            }
+
+            items.forEach(item => {
+                const card = document.createElement('div');
+                card.className = "bg-white dark:bg-stone-900 rounded-2xl border border-stone-200 dark:border-stone-800 overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col group";
+                card.innerHTML = `
+                    <div class="relative overflow-hidden aspect-video bg-stone-100 dark:bg-stone-800">
+                        <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.onerror=null;this.src='https://placehold.co/600x400/ffedd5/c2410c?text=Ramesh+Tiffins';">
+                        <div class="absolute top-3 left-3 bg-white/90 dark:bg-stone-900/90 backdrop-blur-xs px-2.5 py-1 rounded-lg text-xs font-bold flex items-center gap-1 shadow-xs">
+                            <i class="fa-solid fa-star text-amber-500"></i>
+                            <span>${item.rating}</span>
+                        </div>
+                        <div class="absolute top-3 right-3 bg-orange-600 text-white text-xs font-semibold px-2.5 py-1 rounded-lg shadow-xs">
+                            ${item.category}
+                        </div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow justify-between space-y-4">
+                        <div>
+                            <h3 class="font-bold text-lg text-stone-900 dark:text-stone-100 group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors">${item.name}</h3>
+                            <p class="text-stone-500 dark:text-stone-400 text-xs mt-1.5 leading-relaxed line-clamp-2">${item.description}</p>
+                        </div>
+                        <div class="flex items-center justify-between pt-2 border-t border-stone-100 dark:border-stone-800">
+                            <div>
+                                <span class="text-xs text-stone-400 block font-medium">Price</span>
+                                <span class="text-xl font-black text-orange-600 dark:text-orange-400">₹${item.price}</span>
+                            </div>
+                            <button onclick="addToCart(${item.id})" class="bg-orange-50 dark:bg-orange-950/60 hover:bg-orange-600 hover:text-white text-orange-600 dark:text-orange-300 px-4 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 active:scale-95">
+                                <i class="fa-solid fa-plus"></i> Add
+                            </button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Category Filter
+        function setCategory(category) {
+            currentCategory = category;
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                if (btn.dataset.category === category) {
+                    btn.className = "category-btn px-4 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap bg-orange-600 text-white shadow-sm transition-all";
+                } else {
+                    btn.className = "category-btn px-4 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-700 transition-all";
+                }
+            });
+            filterMenu();
+        }
+
+        // Search and Filter handler
+        function filterMenu() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            const filtered = menuItems.filter(item => {
+                const matchesCategory = (currentCategory === 'All' || item.category === currentCategory);
+                const matchesQuery = item.name.toLowerCase().includes(query) || item.description.toLowerCase().includes(query);
+                return matchesCategory && matchesQuery;
+            });
+            renderMenu(filtered);
+        }
+
+        // Cart Management
+        function addToCart(itemId) {
+            const item = menuItems.find(i => i.id === itemId);
+            const existing = cart.find(c => c.id === itemId);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({ ...item, qty: 1 });
+            }
+            updateCartUI();
+            showNotification(`Added ${item.name} to cart`);
+        }
+
+        function updateQuantity(itemId, delta) {
+            const item = cart.find(c => c.id === itemId);
+            if (item) {
+                item.qty += delta;
+                if (item.qty <= 0) {
+                    cart = cart.filter(c => c.id !== itemId);
+                }
+            }
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const container = document.getElementById('cart-items-container');
+            const badge = document.getElementById('cart-badge');
+            const subtotalEl = document.getElementById('cart-subtotal');
+            const taxEl = document.getElementById('cart-tax');
+            const totalEl = document.getElementById('cart-total');
+
+            const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+            badge.innerText = totalItems;
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-16 space-y-3">
+                        <i class="fa-solid fa-basket-shopping text-4xl text-stone-300"></i>
+                        <p class="text-sm font-medium text-stone-500">Your cart is empty.</p>
+                        <p class="text-xs text-stone-400">Add delicious idlis, dosas, or coffee to get started!</p>
+                    </div>
+                `;
+                subtotalEl.innerText = '₹0';
+                taxEl.innerText = '₹0';
+                totalEl.innerText = '₹0';
+                return;
+            }
+
+            container.innerHTML = '';
+            let subtotal = 0;
+
+            cart.forEach(item => {
+                subtotal += item.price * item.qty;
+                const div = document.createElement('div');
+                div.className = "flex items-center justify-between gap-3 p-3 bg-stone-50 dark:bg-stone-800/50 rounded-xl border border-stone-100 dark:border-stone-800";
+                div.innerHTML = `
+                    <div class="flex-grow">
+                        <h4 class="font-bold text-sm">${item.name}</h4>
+                        <p class="text-xs text-orange-600 font-semibold mt-0.5">₹${item.price} × ${item.qty} = ₹${item.price * item.qty}</p>
+                    </div>
+                    <div class="flex items-center gap-2 bg-white dark:bg-stone-800 px-2 py-1 rounded-lg border border-stone-200 dark:border-stone-700">
+                        <button onclick="updateQuantity(${item.id}, -1)" class="w-6 h-6 flex items-center justify-center text-stone-500 hover:text-orange-600 font-bold">-</button>
+                        <span class="text-xs font-bold w-4 text-center">${item.qty}</span>
+                        <button onclick="updateQuantity(${item.id}, 1)" class="w-6 h-6 flex items-center justify-center text-stone-500 hover:text-orange-600 font-bold">+</button>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+
+            const tax = Math.round(subtotal * 0.05);
+            const delivery = 25;
+            const grandTotal = subtotal + tax + delivery;
+
+            subtotalEl.innerText = `₹${subtotal}`;
+            taxEl.innerText = `₹${tax}`;
+            totalEl.innerText = `₹${grandTotal}`;
+        }
+
+        // Drawer Controls
+        function toggleCartDrawer(open) {
+            const drawer = document.getElementById('cart-drawer');
+            const backdrop = document.getElementById('cart-drawer-backdrop');
+            if (open) {
+                drawer.classList.remove('translate-x-full');
+                backdrop.classList.remove('hidden');
+            } else {
+                drawer.classList.add('translate-x-full');
+                backdrop.classList.add('hidden');
+            }
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Checkout & Success Modals
+        function openCheckoutModal() {
+            if (cart.length === 0) {
+                showNotification("Your cart is empty!");
+                return;
+            }
+            toggleCartDrawer(false);
+            document.getElementById('checkout-modal').classList.remove('hidden');
+        }
+
+        function closeCheckoutModal() {
+            document.getElementById('checkout-modal').classList.add('hidden');
+        }
+
+        function handleOrderSubmit(e) {
+            e.preventDefault();
+            closeCheckoutModal();
+            const name = document.getElementById('cust-name').value;
+            document.getElementById('success-message').innerText = `Thank you, ${name}! Your hot South Indian breakfast is being prepared with pure ghee at Ramesh Tiffins and will be served/delivered shortly.`;
+            document.getElementById('success-modal').classList.remove('hidden');
+            cart = [];
+            updateCartUI();
+        }
+
+        function closeSuccessModal() {
+            document.getElementById('success-modal').classList.add('hidden');
+        }
+
+        // Notification Toast Helper
+        function showNotification(text) {
+            const box = document.getElementById('msg-box');
+            const txt = document.getElementById('msg-text');
+            txt.innerText = text;
+            box.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                box.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        // Dark Mode Toggle
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            const icon = document.getElementById('theme-icon');
+            html.classList.toggle('dark');
+            if (html.classList.contains('dark')) {
+                icon.className = "fa-solid fa-sun";
+            } else {
+                icon.className = "fa-solid fa-moon";
+            }
+        }
+    </script>
+</body>
+</html>
